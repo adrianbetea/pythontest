@@ -4,10 +4,12 @@ import os
 
 # Problema 1: Securitate - Lipsa de validare a căii (Path Traversal)
 def read_file_content(path):
-    # DANGEROUS: Permite citirea fișierelor din afara directorului de lucru
-    with open(path, 'r') as f:
-        return f.read()
-
+    # Acesta este modul Pythonic și sigur de a citi un fișier:
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return f"Eroare: Fisierul '{path}' nu a fost găsit."
 # Problema 2: Stil - Folosirea unei variabile globale pentru a ține minte starea
 FILE_COUNTER = 0
 
